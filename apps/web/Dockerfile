@@ -20,6 +20,6 @@ COPY --from=builder /app/package.json /app/package-lock.json ./
 COPY --from=builder /app/apps/web/package.json ./apps/web/package.json
 COPY --from=builder /app/node_modules ./node_modules
 
-EXPOSE 4173
+EXPOSE 3000
 
 CMD ["npm", "run", "preview:railway", "--workspace=@habittracker/web"]
