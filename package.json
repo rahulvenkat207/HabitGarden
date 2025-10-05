@@ -1,0 +1,20 @@
+{
+  "name": "habittracker-monorepo",
+  "private": true,
+  "packageManager": "npm@10.9.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "start": "turbo run start --filter=@habittracker/api",
+    "preview": "turbo run preview --filter=@habittracker/web"
+  },
+  "devDependencies": {
+    "turbo": "^2.1.3"
+  }
+}

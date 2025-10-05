@@ -1,0 +1,19 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "services": [
+    {
+      "name": "api",
+      "source": ".",
+      "installCommand": "npm install",
+      "buildCommand": "npm run build --workspace=@habittracker/api",
+      "startCommand": "npm run start --workspace=@habittracker/api"
+    },
+    {
+      "name": "web",
+      "source": ".",
+      "installCommand": "npm install",
+      "buildCommand": "npm run build --workspace=@habittracker/web",
+      "startCommand": "npm run preview:railway --workspace=@habittracker/web"
+    }
+  ]
+}

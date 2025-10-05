@@ -1,0 +1,51 @@
+{
+  "name": "@habittracker/api",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Backend for HabitGarden - A habit tracking application with gamification",
+  "main": "dist/app.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "dev": "concurrently \"tsc --watch\" \"dotenv -e .env -- nodemon dist/app.js\"",
+    "migrate": "drizzle-kit push:pg --config=src/db/drizzle.config.ts",
+    "railway-migrate": "node scripts/railway-migrate.js",
+    "studio": "drizzle-kit studio --config=src/db/drizzle.config.ts",
+    "seed": "ts-node drizzle/seed/index.ts",
+    "apply-rls": "ts-node src/db/apply_rls.ts"
+  },
+  "keywords": [
+    "habit-tracker",
+    "express",
+    "drizzle",
+    "supabase",
+    "typescript"
+  ],
+  "author": "HabitGarden Team",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.43.0",
+    "@types/pg": "^8.15.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "dotenv-cli": "^7.4.2",
+    "drizzle-orm": "^0.30.0",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "pg": "^8.16.3",
+    "pino": "^10.0.0",
+    "postgres": "^3.4.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.0",
+    "@types/pino": "^7.0.4",
+    "concurrently": "^8.2.2",
+    "drizzle-kit": "^0.20.0",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.0"
+  }
+}
