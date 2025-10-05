@@ -109,6 +109,8 @@ export const useStore = create<HabitStore>()(
                 loading: false 
               });
             }
+            // Load habits after successful signin
+            await get().loadHabits();
             return true;
           } else {
             throw new Error(response.error || 'Signin failed');
@@ -132,9 +134,13 @@ export const useStore = create<HabitStore>()(
             if (response.data?.token) {
               // User can sign in immediately
               set({ 
-                loading: false,
-                error: 'Account created successfully! You can now sign in.'
+                loading: false
               });
+              // Show success message and prompt user to sign in
+              set({ 
+                error: 'Account created successfully! Please sign in with your credentials.'
+              });
+              // Clear the success message after 3 seconds
               setTimeout(() => {
                 set({ error: null });
               }, 3000);
@@ -145,7 +151,7 @@ export const useStore = create<HabitStore>()(
                 loading: false
               });
               // Set a more informative success message
-              const successMessage = response.message || 'Account created successfully! You can now sign in.';
+              const successMessage = response.message || 'Account created successfully! Please sign in with your credentials.';
               set({ 
                 error: successMessage
               });
@@ -160,7 +166,7 @@ export const useStore = create<HabitStore>()(
           }
         } catch (error: any) {
           set({ 
-            error: error.message || 'Signup failed', 
+            error: error.message || 'Signup failed. Please try again.', 
             loading: false 
           });
           return false;

@@ -131,8 +131,8 @@ export const Habits = () => {
               <div className="bg-green-100 p-6 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6">
                 <Leaf className="h-12 w-12 text-green-600" />
               </div>
-              <h2 className="text-2xl font-semibold text-gray-800 mb-2">No Habits Yet</h2>
-              <p className="text-gray-600 mb-6">Start by adding your first habit to begin your journey</p>
+              <h2 className="text-2xl font-semibold text-gray-800 mb-2">Welcome to Your Habit Garden!</h2>
+              <p className="text-gray-600 mb-6">Start by adding your first habit to begin cultivating positive routines</p>
               <Button onClick={() => setIsModalOpen(true)} className="bg-green-600 hover:bg-green-700">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Your First Habit

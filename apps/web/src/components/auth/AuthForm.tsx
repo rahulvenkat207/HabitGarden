@@ -110,7 +110,7 @@ export const AuthForm = () => {
       if (isSignUp) {
         const success = await signup(formData.email, formData.password);
         if (success) {
-          // Show success message for signup
+          // Show success message for signup and prompt user to sign in
           setShowSuccessMessage(true);
         } else {
           // Check if there's a specific error message from the store
@@ -120,6 +120,8 @@ export const AuthForm = () => {
       } else {
         const success = await signin(formData.email, formData.password);
         if (success) {
+          // Load user data after successful signin
+          await useStore.getState().loadHabits();
           navigate('/habits');
         } else {
           // Get error from store
@@ -189,7 +191,7 @@ export const AuthForm = () => {
             {formData.email}
           </p>
           <p className="text-gray-600 mb-4">
-            You can now sign in with your credentials.
+            Please sign in with your credentials to continue.
           </p>
           <motion.button
             whileHover={{ scale: 1.05 }}
