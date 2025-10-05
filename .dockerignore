@@ -1,0 +1,12 @@
+node_modules
+.turbo
+dist
+build
+*.log
+npm-debug.log*
+.env
+.env.*
+apps/*/node_modules
+apps/*/dist
+apps/*/build
+packages/*/node_modules

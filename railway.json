@@ -4,16 +4,12 @@
     {
       "name": "api",
       "source": ".",
-      "installCommand": "npm install",
-      "buildCommand": "npm run build --workspace=@habittracker/api",
-      "startCommand": "npm run start --workspace=@habittracker/api"
+      "dockerfilePath": "apps/api/Dockerfile"
     },
     {
       "name": "web",
       "source": ".",
-      "installCommand": "npm install",
-      "buildCommand": "npm run build --workspace=@habittracker/web",
-      "startCommand": "npm run preview:railway --workspace=@habittracker/web"
+      "dockerfilePath": "apps/web/Dockerfile"
     }
   ]
 }
