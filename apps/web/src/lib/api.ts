@@ -71,13 +71,6 @@ class AuthService {
       });
       
       if (error) {
-        // Handle specific error cases
-        if (error.message.includes('Email not confirmed')) {
-          return {
-            success: false,
-            error: `Please check your email (${email}) and click the confirmation link to activate your account. Check your spam folder if you don't see it.`
-          };
-        }
         return {
           success: false,
           error: error.message
@@ -117,12 +110,19 @@ class AuthService {
         };
       }
       
-      // For signup, Supabase might not return a session immediately
-      return {
-        success: true,
-        message: `We've sent a confirmation email to ${email}. Please check your inbox (and spam folder) to confirm your account.`,
-        data: { token: data?.session?.access_token || '' }
-      };
+      // For signup, Supabase returns a session immediately when email confirmation is disabled
+      if (data?.session?.access_token) {
+        return {
+          success: true,
+          data: { token: data.session.access_token }
+        };
+      } else {
+        return {
+          success: true,
+          message: `Account created successfully! You can now sign in.`,
+          data: { token: '' }
+        };
+      }
     } catch (error: any) {
       return {
         success: false,

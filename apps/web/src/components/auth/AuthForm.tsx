@@ -124,12 +124,7 @@ export const AuthForm = () => {
         } else {
           // Get error from store
           const storeError = useStore.getState().error;
-          // Check if the error is specifically about email confirmation
-          if (storeError && storeError.includes('check your email')) {
-            setErrors({ general: storeError });
-          } else {
-            setErrors({ general: storeError || 'Signin failed. Please check your credentials.' });
-          }
+          setErrors({ general: storeError || 'Signin failed. Please check your credentials.' });
         }
       }
     } catch (error: any) {
@@ -186,30 +181,27 @@ export const AuthForm = () => {
           >
             <Sprout className="h-12 w-12 text-green-600" />
           </motion.div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Check Your Email</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Account Created!</h2>
           <p className="text-gray-600 mb-4">
-            We've sent a confirmation email to:
+            Your account has been created successfully.
           </p>
           <p className="text-green-700 font-medium mb-4">
             {formData.email}
           </p>
           <p className="text-gray-600 mb-4">
-            Please check your inbox (and spam folder) to confirm your account.
+            You can now sign in with your credentials.
           </p>
-          <div className="bg-green-50 rounded-lg p-4 mb-4 border border-green-100">
-            <p className="text-sm text-green-700">
-              <span className="font-medium">Didn't receive an email?</span> 
-              <br />• Check your spam/junk folder
-              <br />• Wait a few minutes for delivery
-              <br />• Ensure you entered the correct email address
-            </p>
-          </div>
-          <p className="text-gray-600 text-sm">
-            After confirming, return to this page and sign in.
-          </p>
-          <div className="flex justify-center mt-4">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600"></div>
-          </div>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              setShowSuccessMessage(false);
+              setIsSignUp(false);
+            }}
+            className="mt-4 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+          >
+            Continue to Sign In
+          </motion.button>
         </div>
       </motion.div>
     );
@@ -265,27 +257,10 @@ export const AuthForm = () => {
           </motion.div>
         </motion.div>
 
-        {/* Email Confirmation Reminder */}
-        {!isSignUp && errors.general && errors.general.includes('check your email') && (
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-            <div className="flex items-start">
-              <Mail className="h-5 w-5 text-blue-500 mt-0.5 mr-2 flex-shrink-0" />
-              <div className="flex-1">
-                <p className="font-medium text-blue-800">Confirm your email</p>
-                <p className="text-sm text-blue-700 mt-1">
-                  We sent a confirmation email to <span className="font-medium">{formData.email}</span>. 
-                  Please check your inbox and click the confirmation link.
-                </p>
-                <p className="text-xs mt-2 text-blue-600">
-                  Didn't receive it? Check your spam folder or wait a few minutes.
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
+
 
         {/* Error Message */}
-        {errors.general && !errors.general.includes('check your email') && (
+        {errors.general && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}

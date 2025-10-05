@@ -128,20 +128,33 @@ export const useStore = create<HabitStore>()(
         try {
           const response = await authService.signup(email, password);
           if (response.success) {
-            // For signup, we show a success message regardless of whether we get a token
-            set({ 
-              loading: false
-            });
-            // Set a more informative success message
-            const successMessage = response.message || `We've sent a confirmation email to ${email}. Please check your inbox to confirm your account.`;
-            set({ 
-              error: successMessage
-            });
-            // Clear the success message after 5 seconds
-            setTimeout(() => {
-              set({ error: null });
-            }, 5000);
-            return true;
+            // Check if we got a token immediately (email confirmation disabled)
+            if (response.data?.token) {
+              // User can sign in immediately
+              set({ 
+                loading: false,
+                error: 'Account created successfully! You can now sign in.'
+              });
+              setTimeout(() => {
+                set({ error: null });
+              }, 3000);
+              return true;
+            } else {
+              // For signup, we show a success message
+              set({ 
+                loading: false
+              });
+              // Set a more informative success message
+              const successMessage = response.message || 'Account created successfully! You can now sign in.';
+              set({ 
+                error: successMessage
+              });
+              // Clear the success message after 3 seconds
+              setTimeout(() => {
+                set({ error: null });
+              }, 3000);
+              return true;
+            }
           } else {
             throw new Error(response.error || 'Signup failed');
           }
