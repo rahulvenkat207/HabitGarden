@@ -55,6 +55,13 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
     if (!localUser) {
       // Create user in our database
       const username = user.email?.split('@')[0] || `user_${user.id.substring(0, 8)}`;
+      console.log('Creating new user in local database with data:', {
+        id: user.id,
+        email: user.email || '',
+        username: username,
+        avatarUrl: user.user_metadata?.avatar_url || null,
+      });
+      
       localUser = await createUser({
         id: user.id,
         email: user.email || '',

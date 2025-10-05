@@ -5,6 +5,8 @@ import { db } from "../../db/index";
 // Service functions
 export async function createUser(data: { id: string; email: string; username: string; avatarUrl?: string }) {
   try {
+    console.log('Attempting to create user with data:', data);
+    
     const [user] = await db
       .insert(users)
       .values({
@@ -16,6 +18,7 @@ export async function createUser(data: { id: string; email: string; username: st
       .onConflictDoNothing()
       .returning();
     
+    console.log('User creation result:', user);
     return user;
   } catch (error) {
     console.error('Error creating user:', error);
